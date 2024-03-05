@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, StringVar
 import pyperclip
 import random
+import sv_ttk
 
 def on_button_click():
     print(checkbox1_var.get())
@@ -180,4 +181,5 @@ dropdown3.pack(pady=10)
 entry3 = ttk.Entry(tab3)
 entry3.pack(pady=10)
 
+sv_ttk.set_theme("dark")
 root.mainloop()
