@@ -34,29 +34,16 @@ def party_st():
     text += "schemfParty"
     return text
 
-
-
-
-
-
 # Party Emotes
-# partyEmotes.append("Custom")
-
 customEmotes = []
 def customEmoteEingabe(sv):
     eingabe = sv.get()
     global customEmotes
     customEmotes = eingabe.split(" ")
-    # print(customEmotes)
-
-    # partyEmotes[len(partyEmotes)-1]
 
 def generate_party(amount, randomize, partyEmoteValues):
     text = ""
     more = True
-    allEmotes = partyEmoteValues
-    for emote in customEmotes:
-        allEmotes[emote] = partyEmoteValues["Custom"].get()
     while more:
         if randomize:
             textToAdd = ""
@@ -104,4 +91,19 @@ def generate_party(amount, randomize, partyEmoteValues):
                     more = False
                     break
 
+    return text
+
+# Emoji Text
+def customEmoteTextEingabe(sv):
+    global customEmoteText
+    customEmoteText = sv.get()
+
+def generate_emoji_text(emText, emoji):
+    if emoji == "schemfCustom":
+        emoji = customEmoteText
+    text = ""
+    for element in emText:
+        text += (emoji+" ")
+        text += (element+" ")
+    text += emoji
     return text

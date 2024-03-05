@@ -1,14 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, StringVar
 import sv_ttk
-# import functions
-
 from functions import *
-
-def on_button_click():
-    print(checkbox1_var.get())
-
-chacoEmotes = True
 
 root = tk.Tk()
 root.title("Schemunity Twitch Chat")
@@ -98,22 +91,48 @@ button2 = ttk.Button(left_frame_2, text="Generate", command=lambda: insert_text(
 button2.pack(pady=5)
 
 
-# Tab 3
+#####
+# Tab 3 - Emoji Text
+#####
 tab3 = ttk.Frame(tab_control)
 tab_control.add(tab3, text='Emoji Text')
 tab_control.pack(expand=1, fill="both")
+left_frame_3 = ttk.Frame(tab3, borderwidth=10)
+left_frame_3.pack(side=tk.LEFT, padx=10)
+right_frame_3 = ttk.Frame(tab3, borderwidth=10)
+right_frame_3.pack(side=tk.LEFT, padx=10)
 
-# Button, Dropdown-Menü und Texteingabefeld für Tab 3
-button3 = ttk.Button(tab3, text="Button", command=on_button_click)
-button3.pack(pady=10)
+# Rechte Seite
+textbox3 = tk.Text(right_frame_3, height=30, width=40)
+textbox3.pack(pady=10)
 
-options3 = ['Option X', 'Option Y', 'Option Z']
-dropdown3 = ttk.Combobox(tab3, values=options3)
-dropdown3.current(0)
-dropdown3.pack(pady=10)
+button4 = ttk.Button(right_frame_3, text="Copy to Clipboard", command=copy_to_clipboard(textbox3.get('1.0', tk.END).strip()))
+button4.pack(pady=3)
 
-entry3 = ttk.Entry(tab3)
+# Linke Seite
+emojiText = StringVar()
+entry3 = ttk.Entry(left_frame_3, textvariable=emojiText)
 entry3.pack(pady=10)
+
+textEmoji = StringVar(value='schemfParty')
+schemfParty = ttk.Radiobutton(left_frame_3, text='schemfParty', variable=textEmoji, value='schemfParty')
+schemfParty.pack(pady=3, anchor=tk.W)
+schemfUel = ttk.Radiobutton(left_frame_3, text='schemfUel', variable=textEmoji, value='schemfUel')
+schemfUel.pack(pady=3, anchor=tk.W)
+schemfLove = ttk.Radiobutton(left_frame_3, text='schemfLove', variable=textEmoji, value='schemfLove')
+schemfLove.pack(pady=3, anchor=tk.W)
+schemfPikdwiffel = ttk.Radiobutton(left_frame_3, text='schemfPikdwiffel', variable=textEmoji, value='schemfPikdwiffel')
+schemfPikdwiffel.pack(pady=3, anchor=tk.W)
+schemfCustom = ttk.Radiobutton(left_frame_3, text='Custom', variable=textEmoji, value='schemfCustom')
+schemfCustom.pack(pady=3, anchor=tk.W)
+
+customTextEmote = StringVar()
+customTextEmote.trace("w", lambda name, index, mode, sv=customTextEmote: customEmoteTextEingabe(sv))
+entry2 = ttk.Entry(left_frame_3, textvariable=customTextEmote)
+entry2.pack(pady=3)
+
+button5 = ttk.Button(left_frame_3, text="Generate", command=lambda: insert_text(generate_emoji_text(emojiText.get(), textEmoji.get()), textbox3))
+button5.pack(pady=5)
 
 sv_ttk.set_theme("dark")
 # if __name__=="__main__":
