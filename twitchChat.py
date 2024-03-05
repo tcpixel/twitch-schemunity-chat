@@ -58,7 +58,7 @@ right_frame_2.pack(side=tk.LEFT, padx=10)
 textbox2 = tk.Text(right_frame_2, height=30, width=40)
 textbox2.pack(pady=10)
 
-button3 = ttk.Button(right_frame_2, text="Copy to Clipboard", command=copy_to_clipboard(textbox2.get('1.0', tk.END).strip()))
+button3 = ttk.Button(right_frame_2, text="Copy to Clipboard", command=lambda: copy_to_clipboard(textbox2.get('1.0', tk.END).strip()))
 button3.pack(pady=3)
 
 # Linke Seite
@@ -106,7 +106,7 @@ right_frame_3.pack(side=tk.LEFT, padx=10)
 textbox3 = tk.Text(right_frame_3, height=30, width=40)
 textbox3.pack(pady=10)
 
-button4 = ttk.Button(right_frame_3, text="Copy to Clipboard", command=copy_to_clipboard(textbox3.get('1.0', tk.END).strip()))
+button4 = ttk.Button(right_frame_3, text="Copy to Clipboard", command=lambda: copy_to_clipboard(textbox3.get('1.0', tk.END).strip()))
 button4.pack(pady=3)
 
 # Linke Seite
