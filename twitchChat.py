@@ -1,8 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, StringVar
-import pyperclip
+# import pyperclip
 import random
 import sv_ttk
+# import functions
+
+from functions import *
 
 def on_button_click():
     print(checkbox1_var.get())
@@ -27,54 +30,27 @@ left_frame_1.pack(side=tk.LEFT, padx=10)
 right_frame_1 = ttk.Frame(tab1)
 right_frame_1.pack(side=tk.LEFT, padx=10)
 
-# Checkbox 
-chacoEmotes = tk.BooleanVar(value=True)
-checkbox1 = ttk.Checkbutton(left_frame_1, text='Chaco Emotes', variable=chacoEmotes, onvalue=True, offvalue=False)
-checkbox1.pack(pady=15)
-
-def ueberflausch():
-    text = ""
-    for element in "ÜBERFLAUSCH":
-        text += "schemfChaco " if chacoEmotes.get() else "schemfUel "
-        text += (element+" ")
-    text += "schemfChaco" if chacoEmotes.get() else "schemfUel"
-    textbox1.delete('1.0', tk.END)
-    textbox1.insert(tk.END, text)
-button1 = ttk.Button(left_frame_1, text="Überflausch", command=ueberflausch)
-button1.pack(pady=3)
-
-def schemfuel():
-    text = ""
-    for element in "SCHEMFUEL":
-        text += "schemfUel "
-        text += (element+" ")
-    text += "schemfUel"
-    textbox1.delete('1.0', tk.END)
-    textbox1.insert(tk.END, text)
-button1 = ttk.Button(left_frame_1, text="Schemfuel", command=schemfuel)
-button1.pack(pady=3)
-
-def party_st():
-    text = ""
-    for element in "PARTY":
-        text += "schemfParty "
-        text += (element+" ")
-    text += "schemfParty"
-    textbox1.delete('1.0', tk.END)
-    textbox1.insert(tk.END, text)
-button1 = ttk.Button(left_frame_1, text="Party", command=party_st)
-button1.pack(pady=3)
-
 # Rechte Seite
 textbox1 = tk.Text(right_frame_1, height=30, width=40)
 textbox1.pack(pady=10)
 
-def copy_to_clipboard1():
-    text_to_copy = textbox1.get('1.0', tk.END).strip()
-    pyperclip.copy(text_to_copy)
-    print("Text copied to clipboard:", text_to_copy)
-button1 = ttk.Button(right_frame_1, text="Copy to Clipboard", command=copy_to_clipboard1)
+button1 = ttk.Button(right_frame_1, text="Copy to Clipboard", command=lambda: copy_to_clipboard(textbox1.get('1.0', tk.END).strip()))
 button1.pack(pady=3)
+
+# Linke Seite
+chacoEmotes = tk.BooleanVar(value=True)
+checkbox1 = ttk.Checkbutton(left_frame_1, text='Chaco Emotes', variable=chacoEmotes, onvalue=True, offvalue=False)
+checkbox1.pack(pady=15)
+
+button1 = ttk.Button(left_frame_1, text="Überflausch", command=lambda: insert_text(ueberflausch(chacoEmotes), textbox1))
+button1.pack(pady=3)
+
+button1 = ttk.Button(left_frame_1, text="Schemfuel", command=lambda: insert_text(schemfuel(), textbox1))
+button1.pack(pady=3)
+
+button1 = ttk.Button(left_frame_1, text="Party", command=lambda: insert_text(party_st(), textbox1))
+button1.pack(pady=3)
+
 
 
 #####
@@ -182,4 +158,5 @@ entry3 = ttk.Entry(tab3)
 entry3.pack(pady=10)
 
 sv_ttk.set_theme("dark")
+# if __name__=="__main__":
 root.mainloop()
