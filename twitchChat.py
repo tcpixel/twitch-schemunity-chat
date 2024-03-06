@@ -134,6 +134,22 @@ entry2.pack(pady=3)
 button5 = ttk.Button(left_frame_3, text="Generate", command=lambda: insert_text(generate_emoji_text(emojiText.get(), textEmoji.get()), textbox3))
 button5.pack(pady=5)
 
+
+#####
+# Tab 4 - Auto Party
+#####
+tab4 = ttk.Frame(tab_control)
+tab_control.add(tab4, text='Auto Party')
+tab_control.pack(expand=1, fill="both")
+
+button6 = ttk.Button(tab4, text="Start Auto-Party", command=lambda: auto_party(button6, textbox4, root, [amount.get(), randomize.get(), partyEmoteValues]))
+button6.pack(padx=10, pady=10)
+
+textbox4 = tk.Text(tab4, height=10, width=50)
+textbox4.pack(pady=10)
+
+
+
 sv_ttk.set_theme("dark")
 # if __name__=="__main__":
 root.mainloop()

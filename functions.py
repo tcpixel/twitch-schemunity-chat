@@ -1,6 +1,10 @@
 import tkinter as tk
 import pyperclip
 import random
+import pyautogui
+import time
+import win32gui
+from multiprocessing import Process
 from config import *
 
 def insert_text(text, textbox):
@@ -107,3 +111,34 @@ def generate_emoji_text(emText, emoji):
         text += (element+" ")
     text += emoji
     return text
+
+# Auto Party
+autoTypeState = "Stopped"
+def auto_party(button, textbox, window, partySettings):
+    global autoTypeState
+    if autoTypeState == "Stopped":
+        button.config(state="disabled")
+        textbox.delete('1.0', tk.END)
+        textbox.insert(tk.END, "Starting Auto-Type.\n")
+        textbox.insert(tk.END, "Waiting for Twitch Active Window...\n")
+        autoTypeState = "Waiting"
+    
+    if autoTypeState == "Waiting":
+        active_window_title = win32gui.GetWindowText(win32gui.GetForegroundWindow())
+        if twitchWindowTitle in active_window_title:
+            textbox.insert(tk.END, "Twitch detected. Starting Auto-Type.\n")
+            autoTypeState = "Running"
+    if autoTypeState == "Running":
+        active_window_title = win32gui.GetWindowText(win32gui.GetForegroundWindow())
+        if twitchWindowTitle in active_window_title:
+            copy_to_clipboard(generate_party(partySettings[0], partySettings[1], partySettings[2]))
+            pyautogui.hotkey('ctrl', 'v')
+            time.sleep(0.1)
+            pyautogui.press('enter')
+        else:
+            autoTypeState = "Stopped"
+            textbox.insert(tk.END, "Autp-Type stopped.\n")
+            button.config(state="enabled")
+
+    if autoTypeState == "Waiting" or autoTypeState == "Running":
+        window.after(autoTypeSleep, lambda: auto_party(button, textbox, window, partySettings)) 

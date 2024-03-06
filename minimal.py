@@ -96,6 +96,22 @@ entry2.grid(row=2,column=1, columnspan=2, sticky='W', padx=5, pady=0)
 button4 = ttk.Button(tab3, text="Copy to Clipboard", command=lambda: copy_to_clipboard(generate_emoji_text(emojiText.get(), textEmoji.get())))
 button4.grid(row=2,column=3, sticky='E', padx=5, pady=0)
 
+
+#####
+# Tab 4 - Auto Party
+#####
+tab4 = ttk.Frame(tab_control)
+tab_control.add(tab4, text='Auto Party')
+tab_control.pack(expand=1, fill="both")
+
+button6 = ttk.Button(tab4, text="Start Auto-Party", command=lambda: auto_party(button6, textbox4, root, [amount.get(), randomize.get(), partyEmoteValues]))
+button6.grid(row=0,column=0, sticky='W', padx=10, pady=10)
+
+textbox4 = tk.Text(tab4, height=10, width=50)
+textbox4.grid(row=1,column=0, sticky='W', padx=10, pady=5)
+
+
+
 sv_ttk.set_theme("dark")
 # if __name__=="__main__":
 root.mainloop()
